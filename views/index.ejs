@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Memo Board</title>
+	<link rel ="stylesheet" type ="text/css" href ="/style.css">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" type='text/css' href='/bootstrap.css'>
+</head>
+<body>
+<div class="container">
+	<h2> Memo Board </h2>
+	<hr>
+	
+	<!-- ********Post memos******** -->
+	<form method ="post" action ='/memos'>
+		<label> Name: 
+		<input type ="text" name = "name" require> </label>
+		<label> Memo:
+		<textarea name ='memo' require></textarea></label>
+		<input type ="submit" value ="Post Memo">
+	</form>
+
+	<!-- loop through memos -->
+	<% for(index in memos){ %>
+		<div class ='memos'>
+			<label> Name: <%= memos[index].name %> </label>
+			<p> Message: <%= memos[index].memo %> </p>
+			<!-- *********post comments******** -->
+			<div class ='comments'>
+				
+				<% for(var indexx = 0; indexx < memos[index].comments.length; indexx++){ %>
+					<label> Name: <%= memos[index].comments[indexx].name %></label>
+					<p>Comment: <%= memos[index].comments[indexx].comment %> </p>
+				<% } %>
+				
+				<form method ='post' action ='/comments'>
+					<input type ="hidden" name ='_Memo' value ="<%= memos[index]._id %>">
+					<input type = 'text' name ='name' require>
+					<textarea name ='comment' require></textarea>
+					<input type = 'submit' value ="Post Comment">
+				</form>
+			</div>
+		</div>
+	<% } %>
+</div>
+</body>
+</html>
